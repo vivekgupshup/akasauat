@@ -20,8 +20,8 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/flightstatus', flightStatus)
-app.use('/downloadticket', downloadticket)
+app.use('flightstatus', flightStatus)
+app.use('downloadticket', downloadticket)
 
 
 
