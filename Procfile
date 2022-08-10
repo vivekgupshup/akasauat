@@ -1,1 +1,1 @@
-web: Documents/akasa/botcallback/index.js
+web: index.js
