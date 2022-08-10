@@ -53,7 +53,7 @@ app.use('downloadticket', downloadticket)
 
 // })
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 5000, () => {
     console.log("Listening");
 })
 
