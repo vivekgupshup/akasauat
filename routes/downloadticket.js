@@ -32,7 +32,15 @@ router.post("/bypnr", async (req, res) => {
             "templateCode": "download_ticket_3533",
 
             "payload": JSON.stringify({
-                "url" : shortRes.data.URL
+                "preview": true,
+                "rotate": false,
+                "download": true,
+                "password": false,
+                "pdfs": [{
+                    "name": "Ticket",
+                    "type": "pdf",
+                    "pdfurl": shortRes.data.URL
+                }],
             })
 
         })
