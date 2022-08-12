@@ -4,4 +4,4 @@ heroku dashboard : https://dashboard.heroku.com/apps/akasauat/
 
 heroku github repo : https://github.com/vivekgupshup/akasauat/
 
-Base Url : https://akasauat.herokuapp.com/
+Base Url : https://akasauat.herokuapp.com/   
