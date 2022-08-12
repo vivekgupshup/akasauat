@@ -1,0 +1,7 @@
+for api logs => heroku logs --tail -a akasauat
+
+heroku dashboard : https://dashboard.heroku.com/apps/akasauat/
+
+heroku github repo : https://github.com/vivekgupshup/akasauat/
+
+Base Url : https://akasauat.herokuapp.com/
