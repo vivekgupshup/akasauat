@@ -24,9 +24,14 @@ router.post("/bypnr", async (req, res) => {
 
     let errorFlag = false;
 
-    if (response.status == 200) {
-        let shortRes = await LinkShortner(url);
+    const data = url;
+    console.log('---ORIGINAL-----', data)
+    const encode = Buffer.from(data).toString('base64')
+    console.log('\n---ENCODED-----', encode)
+    const decode = Buffer.from(encode, 'base64').toString('utf-8')
+    console.log('\n---DECODED-----', decode)    
 
+    if (response.status == 200) {
         res.send({
             status: "success",
             "templateCode": "download_ticket_3533",
@@ -39,7 +44,7 @@ router.post("/bypnr", async (req, res) => {
                 "pdfs": [{
                     "name": "Ticket",
                     "type": "pdf",
-                    "pdfurl": shortRes.data.URL
+                    "pdfurl": decode
                 }],
             })
 
