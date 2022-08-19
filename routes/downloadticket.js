@@ -36,16 +36,38 @@ router.post("/bypnr", async (req, res) => {
             status: "success",
             "templateCode": "download_ticket_3533",
 
+            // "payload": JSON.stringify({
+            //     "preview": true,
+            //     "rotate": false,
+            //     "download": true,
+            //     "password": false,
+            //     "pdfs": [{
+            //         "name": "Ticket",
+            //         "type": "pdf",
+            //         "pdfurl": decode
+            //     }],
+            // })
             "payload": JSON.stringify({
-                "preview": true,
-                "rotate": false,
-                "download": true,
-                "password": false,
-                "pdfs": [{
-                    "name": "Ticket",
-                    "type": "pdf",
-                    "pdfurl": decode
-                }],
+                "messages": [
+                    {
+                        "type": "file",
+                        "testData": [
+                            {
+                                "image": decode,
+                                "title": "EnterpriseEmailAPIDocument",
+                                "subtitle": "EnterpriseEmailAPIDocument",
+                                "header": false
+                            }
+                        ],
+                        "content": {
+                            "image": decode,
+                            "title": "EnterpriseEmailAPIDocument",
+                            "subtitle": "EnterpriseEmailAPIDocument",
+                            "header": false
+                        }
+                    }
+                ],
+                "status": "success"
             })
 
         })
