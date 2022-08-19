@@ -29,7 +29,32 @@ router.post("/bypnr", async (req, res) => {
     const encode = Buffer.from(data).toString('base64')
     console.log('\n---ENCODED-----', encode)
     const decode = Buffer.from(encode, 'base64').toString('utf-8')
-    console.log('\n---DECODED-----', decode)    
+    console.log('\n---DECODED-----', decode)   
+    
+    let payLoadData = {
+        "messages": [
+            {
+                "type": "file",
+                "testData": [
+                    {
+                        "image": decode,
+                        "title": "EnterpriseEmailAPIDocument",
+                        "subtitle": "EnterpriseEmailAPIDocument",
+                        "header": false
+                    }
+                ],
+                "content": {
+                    "image": decode,
+                    "title": "EnterpriseEmailAPIDocument",
+                    "subtitle": "EnterpriseEmailAPIDocument",
+                    "header": false
+                }
+            }
+        ],
+        "status": "success"
+    }
+
+    console.log('\n---payLoadData-----', payLoadData)  
 
     if (response.status == 200) {
         res.send({
@@ -47,28 +72,7 @@ router.post("/bypnr", async (req, res) => {
             //         "pdfurl": decode
             //     }],
             // })
-            "payload": JSON.stringify({
-                "messages": [
-                    {
-                        "type": "file",
-                        "testData": [
-                            {
-                                "image": decode,
-                                "title": "EnterpriseEmailAPIDocument",
-                                "subtitle": "EnterpriseEmailAPIDocument",
-                                "header": false
-                            }
-                        ],
-                        "content": {
-                            "image": decode,
-                            "title": "EnterpriseEmailAPIDocument",
-                            "subtitle": "EnterpriseEmailAPIDocument",
-                            "header": false
-                        }
-                    }
-                ],
-                "status": "success"
-            })
+            "payload": JSON.stringify(payLoadData)
 
         })
 
