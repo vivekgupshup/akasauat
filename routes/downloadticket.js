@@ -24,12 +24,12 @@ router.post("/bypnr", async (req, res) => {
 
     let errorFlag = false;
 
-    const data = url;
-    console.log('---ORIGINAL-----', data)
-    const encode = Buffer.from(data).toString('base64')
-    console.log('\n---ENCODED-----', encode)
-    const decode = Buffer.from(encode, 'base64').toString('utf-8')
-    console.log('\n---DECODED-----', decode)   
+    // const data = url;
+    // console.log('---ORIGINAL-----', data)
+    // const encode = Buffer.from(data).toString('base64')
+    // console.log('\n---ENCODED-----', encode)
+    // const decode = Buffer.from(encode, 'base64').toString('utf-8')
+    // console.log('\n---DECODED-----', decode)   
     
     let payLoadData = {
         "messages": [
@@ -37,14 +37,14 @@ router.post("/bypnr", async (req, res) => {
                 "type": "file",
                 "testData": [
                     {
-                        "image": decode,
+                        "image": url,
                         "title": "EnterpriseEmailAPIDocument",
                         "subtitle": "EnterpriseEmailAPIDocument",
                         "header": false
                     }
                 ],
                 "content": {
-                    "image": decode,
+                    "image": url,
                     "title": "EnterpriseEmailAPIDocument",
                     "subtitle": "EnterpriseEmailAPIDocument",
                     "header": false
