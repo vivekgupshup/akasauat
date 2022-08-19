@@ -54,7 +54,7 @@ router.post("/bypnr", async (req, res) => {
         "status": "success"
     }
 
-    console.log('\n---payLoadData-----', payLoadData)  
+    console.log('\n---payLoadData-----', JSON.stringify(payLoadData))  
 
     if (response.status == 200) {
         res.send({
