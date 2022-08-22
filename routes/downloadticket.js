@@ -30,31 +30,6 @@ router.post("/bypnr", async (req, res) => {
     // console.log('\n---ENCODED-----', encode)
     // const decode = Buffer.from(encode, 'base64').toString('utf-8')
     // console.log('\n---DECODED-----', decode)   
-    
-    let payLoadData = {
-        "messages": [
-            {
-                "type": "file",
-                "testData": [
-                    {
-                        "image": "https://enterprise.smsgupshup.com/help/in/EnterpriseEmailAPIDocument.pdf",
-                        "title": "EnterpriseEmailAPIDocument",
-                        "subtitle": "EnterpriseEmailAPIDocument",
-                        "header": false
-                    }
-                ],
-                "content": {
-                    "image": "https://enterprise.smsgupshup.com/help/in/EnterpriseEmailAPIDocument.pdf",
-                    "title": "EnterpriseEmailAPIDocument",
-                    "subtitle": "EnterpriseEmailAPIDocument",
-                    "header": false
-                }
-            }
-        ],
-        "status": "success"
-    }
-
-    console.log('\n---payLoadData-----', JSON.stringify(payLoadData))  
 
     if (response.status == 200) {
         res.send({
