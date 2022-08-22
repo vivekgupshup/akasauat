@@ -59,20 +59,40 @@ router.post("/bypnr", async (req, res) => {
     if (response.status == 200) {
         res.send({
             status: "success",
-            "templateCode": "download_ticket_3533",
+            // "templateCode": "download_ticket_3533",
 
-            // "payload": JSON.stringify({
-            //     "preview": true,
-            //     "rotate": false,
-            //     "download": true,
-            //     "password": false,
-            //     "pdfs": [{
-            //         "name": "Ticket",
-            //         "type": "pdf",
-            //         "pdfurl": decode
-            //     }],
-            // })
-            "payload": JSON.stringify(payLoadData)
+            // // "payload": JSON.stringify({
+            // //     "preview": true,
+            // //     "rotate": false,
+            // //     "download": true,
+            // //     "password": false,
+            // //     "pdfs": [{
+            // //         "name": "Ticket",
+            // //         "type": "pdf",
+            // //         "pdfurl": decode
+            // //     }],
+            // // })
+            // "payload": JSON.stringify(payLoadData)
+            "messages": [
+                {
+                    "type": "file",
+                    "testData": [
+                        {
+                            "image": "https://enterprise.smsgupshup.com/help/in/EnterpriseEmailAPIDocument.pdf",
+                            "title": "EnterpriseEmailAPIDocument",
+                            "subtitle": "EnterpriseEmailAPIDocument",
+                            "header": false
+                        }
+                    ],
+                    "content": {
+                        "image": "https://enterprise.smsgupshup.com/help/in/EnterpriseEmailAPIDocument.pdf",
+                        "title": "EnterpriseEmailAPIDocument",
+                        "subtitle": "EnterpriseEmailAPIDocument",
+                        "header": false
+                    }
+                }
+            ],
+            "status": "success"
 
         })
 
