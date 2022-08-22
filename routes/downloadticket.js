@@ -24,12 +24,12 @@ router.post("/bypnr", async (req, res) => {
 
     let errorFlag = false;
 
-    // const data = url;
-    // console.log('---ORIGINAL-----', data)
-    // const encode = Buffer.from(data).toString('base64')
-    // console.log('\n---ENCODED-----', encode)
-    // const decode = Buffer.from(encode, 'base64').toString('utf-8')
-    // console.log('\n---DECODED-----', decode)   
+    const data = url;
+    console.log('---ORIGINAL-----', data)
+    const encode = Buffer.from(data).toString('base64')
+    console.log('\n---ENCODED-----', encode)
+    const decode = Buffer.from(encode, 'base64').toString('utf-8')
+    console.log('\n---DECODED-----', decode)   
 
     if (response.status == 200) {
         res.send({
@@ -53,14 +53,14 @@ router.post("/bypnr", async (req, res) => {
                     "type": "file",
                     "testData": [
                         {
-                            "image": "https://enterprise.smsgupshup.com/help/in/EnterpriseEmailAPIDocument.pdf",
+                            "image": encode,
                             "title": "EnterpriseEmailAPIDocument",
                             "subtitle": "EnterpriseEmailAPIDocument",
                             "header": false
                         }
                     ],
                     "content": {
-                        "image": "https://enterprise.smsgupshup.com/help/in/EnterpriseEmailAPIDocument.pdf",
+                        "image": encode,
                         "title": "EnterpriseEmailAPIDocument",
                         "subtitle": "EnterpriseEmailAPIDocument",
                         "header": false
