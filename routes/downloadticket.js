@@ -37,14 +37,14 @@ router.post("/bypnr", async (req, res) => {
                 "type": "file",
                 "testData": [
                     {
-                        "image": url,
+                        "image": "https://enterprise.smsgupshup.com/help/in/EnterpriseEmailAPIDocument.pdf",
                         "title": "EnterpriseEmailAPIDocument",
                         "subtitle": "EnterpriseEmailAPIDocument",
                         "header": false
                     }
                 ],
                 "content": {
-                    "image": url,
+                    "image": "https://enterprise.smsgupshup.com/help/in/EnterpriseEmailAPIDocument.pdf",
                     "title": "EnterpriseEmailAPIDocument",
                     "subtitle": "EnterpriseEmailAPIDocument",
                     "header": false
