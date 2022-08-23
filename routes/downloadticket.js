@@ -85,6 +85,91 @@ router.post("/bypnr", async (req, res) => {
         })
     }
 
-})  
+})
+
+router.post("/bypnrHardCoded", async (req, res) => {
+    console.log("dataa -", req.body.workflow);
+
+    let flightPnr = "Q7QF8G";
+    let userSURNAME = "Iyer"
+
+    let url = "https://prod-bl.qp.akasaair.com/api/ibe/booking/eTicket/download?recordLocator={PNR}&lastName={SURNAME}"
+    url = url.replace("{PNR}", flightPnr)
+    url = url.replace("{SURNAME}", userSURNAME)
+
+    details = {
+        url: url,  
+        PNR: flightPnr,
+        SURNAME: userSURNAME
+    }
+
+    console.log("user details --> ", details); 
+ 
+    let response = await downloadTicket(details);
+
+    let errorFlag = false;
+
+    if (response.status == 200) {
+        console.log( "Response Sent => " , JSON.stringify({
+            "messages": [
+                {
+                    "type": "file",
+                    "testData": [
+                        {
+                            "image": url,
+                            "title": "TICKET",
+                            "subtitle": "TICKET",
+                            "header": false
+                        }
+                    ],
+                    "content": {
+                        "image": url,
+                        "title": "TICKET",
+                        "subtitle": "TICKET",
+                        "header": false
+                    }
+                }
+            ],
+            "status": "success"
+    
+        }))
+        res.send({
+            "messages": [
+                {
+                    "type": "file",
+                    "testData": [
+                        {
+                            "image": url,
+                            "title": "TICKET",
+                            "subtitle": "TICKET",
+                            "header": false
+                        }
+                    ],
+                    "content": {
+                        "image": url,
+                        "title": "TICKET",
+                        "subtitle": "TICKET",
+                        "header": false
+                    }
+                }
+            ],
+            "status": "success"
+
+        })
+
+    } else {
+        errorFlag = true
+    }
+    
+
+
+    if (errorFlag) {
+
+        res.send({
+            status: 'error',
+        })
+    }
+
+})
 
 module.exports = router;
