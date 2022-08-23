@@ -39,14 +39,14 @@ router.post("/bypnr", async (req, res) => {
                     "type": "file",
                     "testData": [
                         {
-                            "image": encode,
+                            "image": url,
                             "title": "TICKET",
                             "subtitle": "TICKET",
                             "header": false
                         }
                     ],
                     "content": {
-                        "image": encode,
+                        "image": url,
                         "title": "TICKET",
                         "subtitle": "TICKET",
                         "header": false
