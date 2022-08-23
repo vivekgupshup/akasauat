@@ -24,14 +24,30 @@ router.post("/bypnr", async (req, res) => {
 
     let errorFlag = false;
 
-    const data = url;
-    console.log('---ORIGINAL-----', data)
-    const encode = Buffer.from(data).toString('base64')
-    console.log('\n---ENCODED-----', encode)
-    const decode = Buffer.from(encode, 'base64').toString('utf-8')
-    console.log('\n---DECODED-----', decode)   
-
     if (response.status == 200) {
+        console.log( "Response Sent => " , {
+            "messages": [
+                {
+                    "type": "file",
+                    "testData": [
+                        {
+                            "image": url,
+                            "title": "TICKET",
+                            "subtitle": "TICKET",
+                            "header": false
+                        }
+                    ],
+                    "content": {
+                        "image": url,
+                        "title": "TICKET",
+                        "subtitle": "TICKET",
+                        "header": false
+                    }
+                }
+            ],
+            "status": "success"
+    
+        })
         res.send({
             "messages": [
                 {
