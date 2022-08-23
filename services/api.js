@@ -177,7 +177,7 @@ async function getStatusByLegKey(flightLegKey) {
     try {
 
         let reponse = await axios(config);
-        let times = reponse.data.data.operationDetails.tripOperationTimes.departureTimes
+        let times = reponse.data
         console.log("status --- >", times);
         return times
     } catch (error) {
