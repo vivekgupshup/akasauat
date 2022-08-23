@@ -66,7 +66,6 @@ router.post("/bypnr", async (req, res) => {
 
         res.send({
             status: 'error',
-            "templateCode": "download_ticket_3533",
         })
     }
 
