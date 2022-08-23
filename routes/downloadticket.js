@@ -25,7 +25,7 @@ router.post("/bypnr", async (req, res) => {
     let errorFlag = false;
 
     if (response.status == 200) {
-        console.log( "Response Sent => " , {
+        console.log( "Response Sent => " , JSON.stringify({
             "messages": [
                 {
                     "type": "file",
@@ -47,7 +47,7 @@ router.post("/bypnr", async (req, res) => {
             ],
             "status": "success"
     
-        })
+        }))
         res.send({
             "messages": [
                 {
