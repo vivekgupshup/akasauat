@@ -33,7 +33,6 @@ router.post("/bypnr", async (req, res) => {
 
     if (response.status == 200) {
         res.send({
-            status: "success",
             "messages": [
                 {
                     "type": "file",
