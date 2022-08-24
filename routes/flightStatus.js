@@ -203,7 +203,12 @@ router.post("/byOriginDestin", async (req, res) => {
 
 let cityCodes = {
     "bombay": "BOM",
-    "ahmedabad": "AMD"
+    "ahmedabad": "AMD",
+    "bengaluru": "BLR",
+    "banglore" : "BLR",
+    "mumbai" : "BOM",
+    "kochi" : "COK",
+    "chennai" : "MAA"
 }
 
 function timeDiffMsg(identifier,dates) {
