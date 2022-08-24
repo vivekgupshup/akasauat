@@ -2,9 +2,9 @@ const router = require('express').Router();
 const { downloadTicket , LinkShortner} = require('../services/api')
 
 router.post("/bypnr", async (req, res) => {
+    console.log("REQ BODY -", req.body);
     console.log("dataa -", req.body.workflow);
     let workflowVariables = req.body.workflow.workflowVariables
-
     let flightPnr = workflowVariables.travel_airlines_ticket_pnr_number_with_pnr;
     let userSURNAME = workflowVariables.travel_airlines_passenger_name_last_name
 
