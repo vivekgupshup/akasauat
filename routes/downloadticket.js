@@ -88,7 +88,6 @@ router.post("/bypnr", async (req, res) => {
                     "templateCode": "imagepdftemplate",
         
                     "payload": JSON.stringify({
-                        "url" : encode ,
                         "preview": true,
                         "rotate": false,
                         "download": true,
@@ -96,7 +95,7 @@ router.post("/bypnr", async (req, res) => {
                         "pdfs": [{
                             "name": "Ticket",
                             "type": "pdf",
-                            "pdfurl": encode
+                            "base64": encode
                         }],
                     })
                 }
@@ -106,7 +105,6 @@ router.post("/bypnr", async (req, res) => {
                 "templateCode": "imagepdftemplate",
     
                 "payload": JSON.stringify({
-                    "url" : encode ,
                     "preview": true,
                     "rotate": false,
                     "download": true,
@@ -114,7 +112,7 @@ router.post("/bypnr", async (req, res) => {
                     "pdfs": [{
                         "name": "Ticket",
                         "type": "pdf",
-                        "pdfurl": encode
+                        "base64": encode
                     }],
                 })
             })
