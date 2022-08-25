@@ -85,7 +85,7 @@ router.post("/bypnr", async (req, res) => {
             console.log( "Response Sent => " , JSON.stringify(
                 {
                     status: "success",
-                    "templateCode": "imagepdftemplate",
+                    "templateCode": "download_ticket_3533",
         
                     "payload": JSON.stringify({
                         "preview": true,
@@ -102,7 +102,7 @@ router.post("/bypnr", async (req, res) => {
                 ))
             res.send({
                 status: "success",
-                "templateCode": "imagepdftemplate",
+                "templateCode": "download_ticket_3533",
     
                 "payload": JSON.stringify({
                     "preview": true,
