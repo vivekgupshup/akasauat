@@ -85,7 +85,7 @@ router.post("/bypnr", async (req, res) => {
             console.log( "Response Sent => " , JSON.stringify(
                 {
                     status: "success",
-                    "templateCode": "download_ticket_3533",
+                    "templateCode": "imagepdftemplate",
         
                     "payload": JSON.stringify({
                         "url" : encode ,
@@ -103,7 +103,7 @@ router.post("/bypnr", async (req, res) => {
                 ))
             res.send({
                 status: "success",
-                "templateCode": "download_ticket_3533",
+                "templateCode": "imagepdftemplate",
     
                 "payload": JSON.stringify({
                     "url" : encode ,
