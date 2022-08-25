@@ -105,7 +105,7 @@ router.post("/bypnr", async (req, res) => {
                 status: "success",
                 "templateCode": "download_ticket_3533",
     
-                "payload": JSON.stringify([{
+                "payload": JSON.stringify({
                     "url": encode,
                     "preview": true,
                     "rotate": false,
@@ -116,7 +116,7 @@ router.post("/bypnr", async (req, res) => {
                         "type": "pdf",
                         "pdfurl": encode
                     }],
-                }])
+                })
             })
         }
         
