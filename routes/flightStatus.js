@@ -32,32 +32,45 @@ router.post("/bypnr", async (req, res) => {
 
     let errorFlag = false;
 
-    if (!response.errors || response !== "error") {
+    if ((!response.errors || response !== "error") && response.data) {
 
+        console.log("resp --> ", response.data);
         let flightLegKey = response.data.journeys[0].segments[0].legs[0].legKey
 
-        let resp = await getStatusByLegKey(flightLegKey)
+        let journeys = response.data[0].journeys
+        console.log("journeys length --> ", journeys.length);
+        if (journeys.length > 1) {
 
-        console.log("active flight status --> ", resp);
-        let ftimes = resp.data.operationDetails.tripOperationTimes.departureTimes
+            let resp = multipleFlights(journeys);
 
-        let finalMsg = timeDiffMsg(resp.data.operationDetails.identifier.identifier,ftimes)
-
-        if (resp !== "error") {
-
-            res.send({
-                status: "success",
-                "messageCode": "flight_status_message",
-
-                "messageParams": [
-                    finalMsg
-                ]
-
-            })
+            res.send(resp)
 
         } else {
-            errorFlag = true
+
+            let resp = await getStatusByLegKey(flightLegKey)
+
+            console.log("active flight status --> ", resp);
+            let ftimes = resp.data.operationDetails.tripOperationTimes.departureTimes
+
+            let finalMsg = timeDiffMsg(resp.data.operationDetails.identifier.identifier, ftimes)
+
+            if (resp !== "error") {
+
+                res.send({
+                    status: "success",
+                    "messageCode": "flight_status_message",
+
+                    "messageParams": [
+                        finalMsg
+                    ]
+
+                })
+
+            } else {
+                errorFlag = true
+            }
         }
+
 
     } else {
         errorFlag = true
@@ -68,7 +81,8 @@ router.post("/bypnr", async (req, res) => {
     if (errorFlag) {
 
         res.send({
-            status: 'error'
+            status: "success",
+            "messageCode": "status_error",
         })
     }
 
@@ -94,27 +108,38 @@ router.post("/byflightnum", async (req, res) => {
 
         let flightLegKey = response.data[0].journeys[0].segments[0].legs[0].legKey
 
-        let resp = await getStatusByLegKey(flightLegKey)
+        let journeys = response.data[0].journeys
+        console.log("journeys length --> ", journeys.length);
+        if (journeys.length > 1) {
 
-        let ftimes = resp.data.operationDetails.tripOperationTimes.departureTimes
+            let resp = multipleFlights(journeys);
 
-        let finalMsg = timeDiffMsg(resp.data.operationDetails.identifier.identifier,ftimes)
+            res.send(resp)
 
-        console.log("active flight status --> ", resp);
-
-        if (!resp.errors || resp !== "error") {
-
-            res.send({
-                status: "success",
-                "messageCode": "flight_status_message",
-
-                "messageParams": [
-                    finalMsg
-                ]
-
-            })
         } else {
-            errorFlag = true
+
+            let resp = await getStatusByLegKey(flightLegKey)
+
+            console.log("active flight status --> ", resp);
+            let ftimes = resp.data.operationDetails.tripOperationTimes.departureTimes
+
+            let finalMsg = timeDiffMsg(resp.data.operationDetails.identifier.identifier, ftimes)
+
+            if (resp !== "error") {
+
+                res.send({
+                    status: "success",
+                    "messageCode": "flight_status_message",
+
+                    "messageParams": [
+                        finalMsg
+                    ]
+
+                })
+
+            } else {
+                errorFlag = true
+            }
         }
 
     } else {
@@ -140,8 +165,9 @@ router.post("/byOriginDestin", async (req, res) => {
     console.log("dataa  -", req.body.workflow);
     let workflowVariables = req.body.workflow.workflowVariables
 
+    let depDate = new Date(workflowVariables.sys_date_departure_date)
     let details = {
-        date: workflowVariables.sys_date_departure_date,
+        date: depDate.getFullYear,
         origin: cityCodes[workflowVariables.sys_city_departure_city.toLowerCase()],
         destination: cityCodes[workflowVariables.sys_city_arrival_city.toLowerCase()]
     }
@@ -157,27 +183,38 @@ router.post("/byOriginDestin", async (req, res) => {
 
         let flightLegKey = response.data[0].journeys[0].segments[0].legs[0].legKey
 
-        let resp = await getStatusByLegKey(flightLegKey)
+        let journeys = response.data[0].journeys
+        console.log("journeys length --> ", journeys.length);
+        if (journeys.length > 1) {
 
-        console.log("active flight status --> ", resp);
-        let ftimes = resp.data.operationDetails.tripOperationTimes.departureTimes
+            let resp = multipleFlights(journeys);
 
-        let finalMsg = timeDiffMsg(resp.data.operationDetails.identifier.identifier,ftimes)
+            res.send(resp)
 
-
-        if (!resp.errors || resp !== "error") {
-
-            res.send({
-                status: "success",
-                "messageCode": "flight_status_message",
-
-                "messageParams": [
-                    finalMsg
-                ]
-
-            })
         } else {
-            errorFlag = true
+
+            let resp = await getStatusByLegKey(flightLegKey)
+
+            console.log("active flight status --> ", resp);
+            let ftimes = resp.data.operationDetails.tripOperationTimes.departureTimes
+
+            let finalMsg = timeDiffMsg(resp.data.operationDetails.identifier.identifier, ftimes)
+
+            if (resp !== "error") {
+
+                res.send({
+                    status: "success",
+                    "messageCode": "flight_status_message",
+
+                    "messageParams": [
+                        finalMsg
+                    ]
+
+                })
+
+            } else {
+                errorFlag = true
+            }
         }
 
     } else {
@@ -198,20 +235,117 @@ router.post("/byOriginDestin", async (req, res) => {
 
 
 
+router.post("/byLegKey", async (req, res) => {
 
+    console.log("dataa  -", req.body.workflow);
+    let flightLegKey = req.body.workflow.requestVariables.options
+
+
+
+    console.log("workflowVariables --->", flightLegKey);
+
+    let errorFlag = false;
+
+    let resp = await getStatusByLegKey(flightLegKey)
+
+    console.log("active flight status --> ", resp);
+    let ftimes = resp.data.operationDetails.tripOperationTimes.departureTimes
+
+    let finalMsg = timeDiffMsg(resp.data.operationDetails.identifier.identifier, ftimes)
+
+    if (resp !== "error") {
+
+        res.send({
+            status: "success",
+            "messageCode": "flight_status_message",
+
+            "messageParams": [
+                finalMsg
+            ]
+
+        })
+
+    } else {
+        errorFlag = true
+    }
+
+
+
+
+    if (errorFlag) {
+
+        res.send({
+            status: "success",
+            "messageCode": "status_error",
+        })
+    }
+})
+
+
+
+
+
+router.post("/sampleresp", async (req, res) => {
+
+    console.log("request body -", req.body);
+    console.log("flightList body -", flightList);
+    res.send({
+        status: "success",
+        templateCode: "multiple_flights_status",
+
+        payload: JSON.stringify({
+            list: flightList
+        }
+        )
+    })
+})
+
+
+
+
+function multipleFlights(journeys) {
+    let flightList = []
+    for (let i = 0; i < journeys.length; i++) {
+        let legK = journeys[i].segments[0].legs[0].legKey
+        let flightD = i + 1 + ". " + getKeyByValue(cityCodes, journeys[i].designator.origin) + " ➡️ " + getKeyByValue(cityCodes, journeys[i].designator.destination)
+        let depTime = new Date(journeys[i].designator.departure)
+        let flightT = "Departs on -> " + depTime.toShortFormat() + " " + depTime.getHours + ":" + depTime.getMinutes
+
+        flightList.push({
+            flightDetail: flightD,
+            legKey: legK,
+            flightDeparture: flightT
+        })
+    }
+    console.log("flightList ", flightList);
+    let sendResp = {
+        status: "success",
+        templateCode: "multiple_flights_status",
+        payload: JSON.stringify({
+            list: flightList
+        }
+        )
+    }
+
+    return sendResp;
+}
+
+function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+}
 
 
 let cityCodes = {
     "bombay": "BOM",
     "ahmedabad": "AMD",
     "bengaluru": "BLR",
-    "banglore" : "BLR",
-    "mumbai" : "BOM",
-    "kochi" : "COK",
-    "chennai" : "MAA"
+    "banglore": "BLR",
+    "mumbai": "BOM",
+    "kochi": "COK",
+    "chennai": "MAA"
 }
 
-function timeDiffMsg(identifier,dates) {
+function timeDiffMsg(identifier, dates) {
 
     let depDate = new Date(dates.scheduled)
 
@@ -220,17 +354,17 @@ function timeDiffMsg(identifier,dates) {
     }
 
 
-let message = ""
+    let message = ""
 
     if (dates.estimated == null || estDate < depDate) {
-        message = " is operating as per schedule. ETD: "+ depDate.getHours() +":"+depDate.getMinutes() +" hrs."
+        message = " is operating as per schedule. ETD: " + depDate.getHours() + ":" + padTo2Digits(depDate.getMinutes()) + " hrs."
     }
     else if (estDate > depDate) {
-        message = " is delayed. ETD: "+ depDate.getHours() +":"+depDate.getMinutes() +" hrs."
+        message = " is delayed. ETD: " + depDate.getHours() + ":" + padTo2Digits(depDate.getMinutes()) + " hrs."
     }
 
 
-    return identifier+" of " + depDate.toShortFormat() + message
+    return identifier + " of " + depDate.toShortFormat() + message
 }
 
 
@@ -251,7 +385,9 @@ Date.prototype.toShortFormat = function () {
     return `${day}-${monthName}`;
 }
 
-
+function padTo2Digits(num) {
+	return num.toString().padStart(2, '0');
+  }
 
 
 module.exports = router;
