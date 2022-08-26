@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const { downloadTicket , LinkShortner} = require('../services/api')
+const pdf2base64 = require('pdf-to-base64');
+
 
 router.post("/bypnr", async (req, res) => {
     console.log("Channel => ", req.body.bot.channel_type);
@@ -18,13 +20,19 @@ router.post("/bypnr", async (req, res) => {
         PNR: flightPnr,
         SURNAME: userSURNAME
     }
-
-    const data = url;
-    console.log('---ORIGINAL-----', data)
-    const encode = Buffer.from(data).toString('base64')
-    console.log('\n---ENCODED-----', encode)
-    const decode = Buffer.from(encode, 'base64').toString('utf-8')
-    console.log('\n---DECODED-----', decode)  
+    let pdfBase64
+    pdf2base64(url)
+    .then(
+        (response) => {
+            pdfBase64 = response
+            console.log("pdfBase64 =>" , pdfBase64); 
+        }
+    )
+    .catch(
+        (error) => {
+            console.log(error);
+        }
+)
 
 
     console.log("user details --> ", details); 
@@ -95,7 +103,7 @@ router.post("/bypnr", async (req, res) => {
                         "pdfs": [{
                             "name": "Ticket",
                             "type": "pdf",
-                            "base64": encode
+                            "base64": pdfBase64
                         }],
                     }])
                 }
@@ -112,7 +120,7 @@ router.post("/bypnr", async (req, res) => {
                     "pdfs": [{
                         "name": "Ticket",
                         "type": "pdf",
-                        "base64": encode
+                        "base64": pdfBase64
                     }],
                 }])
             })
