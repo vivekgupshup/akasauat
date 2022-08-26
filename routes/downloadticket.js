@@ -27,6 +27,7 @@ router.post("/bypnr", async (req, res) => {
     .then(
         (response) => {
             pdfBase64 = response
+            base64.base64Decode(pdfBase64, './ticket.pdf');
         }
     )
     .catch(
@@ -34,8 +35,6 @@ router.post("/bypnr", async (req, res) => {
             console.log(error);
         }
     )
-
-    let decodedBase64 = base64.base64Decode(pdfBase64, './ticket.pdf');
     
 
 
