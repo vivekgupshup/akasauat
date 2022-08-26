@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { downloadTicket , LinkShortner} = require('../services/api')
 const pdf2base64 = require('pdf-to-base64');
+const base64 = require('base64topdf');
+
 
 
 router.post("/bypnr", async (req, res) => {
@@ -31,7 +33,10 @@ router.post("/bypnr", async (req, res) => {
         (error) => {
             console.log(error);
         }
-)
+    )
+
+    let decodedBase64 = base64.base64Decode(pdfBase64, './ticket.pdf');
+    
 
 
     console.log("user details --> ", details); 
