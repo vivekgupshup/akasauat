@@ -25,7 +25,6 @@ router.post("/bypnr", async (req, res) => {
     .then(
         (response) => {
             pdfBase64 = response
-            console.log("pdfBase64 =>" , pdfBase64); 
         }
     )
     .catch(
