@@ -331,7 +331,8 @@ function multipleFlights(journeys) {
 }
 
 function getKeyByValue(object, value) {
-    return Object.keys(object).find(key => object[key] === value);
+    let value = Object.keys(object).find(key => object[key] === value);
+    return value.charAt(0).toUpperCase() + value.slice(1)
 }
 
 
