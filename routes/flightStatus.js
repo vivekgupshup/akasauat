@@ -309,7 +309,7 @@ function multipleFlights(journeys) {
         let legK = journeys[i].segments[0].legs[0].legKey
         let flightD = i + 1 + ". " + getKeyByValue(cityCodes, journeys[i].designator.origin) + " ➡️ " + getKeyByValue(cityCodes, journeys[i].designator.destination)
         let depTime = new Date(journeys[i].designator.departure)
-        let flightT = "Departs on -> " + depTime.toShortFormat() + " " + depTime.getHours() + ":" + depTime.getMinutes()
+        let flightT = "Departs on -> " + depTime.toShortFormat() + " " + depTime.getHours() + ":" + padTo2Digits(depTime.getMinutes())
 
         flightList.push({
             flightDetail: flightD,
