@@ -15,7 +15,7 @@ router.post("/bypnr", async (req, res) => {
         flightPnr = workflowVariables.travel_airlines_ticket_pnr_number_with_pnr
     }
     else {
-        flightPnr = workflowVariables.travel_airlines_ticket_pnr_number_with_pnr;
+        flightPnr = workflowVariables.travel_airlines_ticket_pnr_number_Start;
     }
     let userSURNAME = workflowVariables.travel_airlines_passenger_name_last_name
 
