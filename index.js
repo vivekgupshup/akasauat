@@ -24,7 +24,10 @@ app.use('/flightstatus', flightStatus)
 app.use('/downloadticket', downloadticket)
 
 
-
+router.post("/bypnr", async (req, res) => {
+    res.send("hiii")
+            
+})
      
 
 // app.post("/close",async (req,res)=>{
