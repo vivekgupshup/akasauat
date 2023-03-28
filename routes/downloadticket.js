@@ -10,7 +10,13 @@ router.post("/bypnr", async (req, res) => {
     let channel = req.body.bot.channel_type
     console.log("dataa -", req.body.workflow);
     let workflowVariables = req.body.workflow.workflowVariables
-    let flightPnr = workflowVariables.travel_airlines_ticket_pnr_number_with_pnr;
+    let flightPnr
+    if (workflowVariables.travel_airlines_ticket_pnr_number_with_pnr) {
+        flightPnr = workflowVariables.travel_airlines_ticket_pnr_number_with_pnr
+    }
+    else if (workflowVariables.travel_airlines_ticket_pnr_number_Start) {
+        flightPnr = workflowVariables.travel_airlines_ticket_pnr_number_Start
+    }
     let userSURNAME = workflowVariables.travel_airlines_passenger_name_last_name
 
     let url = "https://prod-bl.qp.akasaair.com/api/ibe/booking/eTicket/download?recordLocator={PNR}&lastName={SURNAME}"
